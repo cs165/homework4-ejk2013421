@@ -9,11 +9,35 @@
     <link rel="stylesheet" href="musicbox-style.css"/>
     <link rel="icon" type="image/png" href="images/favicon-32x32.png" sizes="32x32" />
     <link rel="icon" type="image/png" href="images/favicon-16x16.png" sizes="16x16" />
-    <script src="./lib/dancer.min.js"></script>
+    <script src="./lib/dancer.js"></script>
     <script src="./lib/fetch.js"></script>
     <script src="audio-player.js" defer></script>
 
     <!-- TODO(you): Add any additional scripts here! -->
+    <script rel="script" type="application/javascript">
+      function getjson() {
+        fetch('https://fullstackccu.github.io/homeworks/hw4/songs.json').then((response) => {
+          return response.json();
+        }).then((jsonData) => {
+          list(jsonData);
+        }).catch((err) => {
+          console.log('錯誤:', err);
+        });
+      }
+
+      function list(element) {
+        for(let e of Object.keys(element)){
+          //console.log(e);
+          const content=document.createElement("option");
+          content.innerHTML=element[e]['title'];
+          content.value=element[e]['songUrl'];
+          document.querySelector('#song-selector').appendChild(content);
+          //console.log(content);
+        }
+      }
+      getjson();
+    </script>
+
     <script src="menu-screen.js" defer></script>
     <script src="play-button.js" defer></script>
     <script src="gif-display.js" defer></script>
@@ -40,6 +64,20 @@
     </div>
 
     <!-- TODO(you): Add the HTML necessary to complete the assignment! -->
+
+    <article id="music-screen" class="inactive">
+      <section>
+        <div id="gif-box-front" class="gif-box">
+
+        </div>
+
+        <div id="gif-box-back" class="gif-box">
+
+        </div>
+      </section>
+      <footer><img id="play-botton" src="images/play.png"/> </footer>
+    </article>
+  
 
   </body>
 </html>
